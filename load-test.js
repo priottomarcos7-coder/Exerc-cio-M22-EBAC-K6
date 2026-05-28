@@ -1,0 +1,29 @@
+import http from 'k6/http'
+import { sleep, check } from 'k6'
+import { BASE_URL } from '../config.js';
+
+export const options = {
+    vus: 70,
+    duration: '2m'
+}
+
+export default function () {
+
+    const payload = JSON.stringify({
+        "email": "usuario@teste.com",
+        "password": "user123"
+    })
+
+    const params = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    let response = http.post(`${BASE_URL}/api/users`, payload, params)
+
+    check(response, {
+        'Status code deve ser 200': (r) => r.status === 200
+    })
+}
