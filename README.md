@@ -1,99 +1,106 @@
-Os Testes foram realizados na api do projeto HUB DE LEITURA, segue abaixo comandos utilizados e imagens dos relatórios:
+# Testes de Performance com K6 — Hub de Leitura
 
-## Executar Smoke Tests
-- Validar se a aplicação (api, site, banco, etc.) está no ar
+## Objetivo
 
-### Configuração do teste
-- VUs: 15
-- Tempo de 15 sgeundos
+Projeto de testes de performance realizado na API do Hub de Leitura, com o objetivo de avaliar o comportamento do sistema sob diferentes níveis de carga e identificar possíveis riscos relacionados a desempenho e estabilidade.
 
-### Execução via terminal
+## O que desenvolvi
+
+Neste projeto desenvolvi diferentes tipos de testes de performance utilizando K6:
+
+- Smoke Test para verificar se a aplicação está disponível.
+- Load Test para avaliar o comportamento com carga controlada.
+- Stress Test para investigar o limite do sistema.
+- Spike Test para avaliar a reação a aumentos repentinos de carga.
+- Soak Test para avaliar estabilidade durante execução prolongada.
+- Fluxos relacionados ao login da aplicação.
+- Geração de dashboards e relatórios HTML do K6.
+- Análise dos resultados e métricas apresentadas pelos testes.
+
+## Tecnologias
+
+- K6
+- JavaScript
+- API REST
+- Hub de Leitura
+
+## Pré-requisitos
+
+- K6 instalado e disponível no PATH.
+- API do Hub de Leitura disponível para os testes.
+- Terminal PowerShell no Windows para os comandos com variáveis de ambiente utilizados neste projeto.
+
+## Instalação
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/priottomarcos7-coder/Exerc-cio-M22-EBAC-K6.git
+cd Exerc-cio-M22-EBAC-K6
+```
+
+O K6 deve ser instalado conforme o sistema operacional. Depois, confirme a instalação:
+
+```bash
+k6 version
+```
+
+## Execução dos testes
+
+### Smoke Test
+
+```powershell
 $env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="smoke-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run smoke-test.js
+```
 
-<img width="1884" height="974" alt="image" src="https://github.com/user-attachments/assets/11d7adca-0685-4965-8121-69105cfc4847" />
-<img width="1888" height="903" alt="image" src="https://github.com/user-attachments/assets/52de57ce-fc77-49e4-a1a6-e88d238c2543" />
-<img width="1887" height="759" alt="image" src="https://github.com/user-attachments/assets/c89cd08d-2cb9-4752-8090-74a9635a508c" />
-<img width="1888" height="715" alt="image" src="https://github.com/user-attachments/assets/f23f12cf-7383-45e6-8d47-673f9b4c19f5" />
-<img width="1885" height="820" alt="image" src="https://github.com/user-attachments/assets/f1808f6f-25d7-40e5-8bd9-78b8a563935f" />
+Configuração utilizada: 15 VUs durante 15 segundos.
 
+### Load Test
 
-## Executar Load Test ( Teste de Performance )
-- Validar se um fluxo aguenta com um certo número de usuários
-- Validar fluxo de login
-
-### Configuração do teste
-- VUs: 70
-- Tempo de 2 minutos
-
-### Execução via terminal
+```powershell
 $env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="load-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run load-test.js
+```
 
-<img width="1882" height="835" alt="image" src="https://github.com/user-attachments/assets/a1f111ad-283d-4cef-8771-5aaee0033eb4" />
-<img width="1886" height="795" alt="image" src="https://github.com/user-attachments/assets/5199720b-0166-4a13-a835-997a2fd46ac1" />
-<img width="1891" height="670" alt="image" src="https://github.com/user-attachments/assets/7f9d6810-183a-4652-8b1a-991eb4a4df7d" />
-<img width="1891" height="670" alt="image" src="https://github.com/user-attachments/assets/42f73bf2-71f2-4693-889a-0f1091738dc3" />
-<img width="1889" height="630" alt="image" src="https://github.com/user-attachments/assets/5e1ff465-06fa-492a-96e8-ea01e8ff9204" />
-<img width="1889" height="738" alt="image" src="https://github.com/user-attachments/assets/549c8b9d-f86d-4f8c-a847-2d0aeb455630" />
+Configuração utilizada: 70 VUs durante 2 minutos.
 
+### Stress Test
 
-## Executar Stress Test ( Teste de Estresse )
-- Validar o limite do sistema, para descobrir até onde aguenta antes de falhar.
-- Validar fluxo de login
-
-### Configuração do teste
-- VUs: aumento gradativo
-- Estágios,
-    - rump-up de 1 até 200 virtual users em 3 minutos
-    - mantém as 200 VUs durante 8 minutos
-    - ramp-down de 200 VUs até 0 em 1 minuto
-
-### Execução via terminal
+```powershell
 $env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="stress-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run stress-test.js
+```
 
-<img width="1886" height="968" alt="image" src="https://github.com/user-attachments/assets/7cd9c537-b05c-4bb5-bd7d-39d30663b896" />
-<img width="1888" height="908" alt="image" src="https://github.com/user-attachments/assets/9ab63372-862c-4599-9d5c-1f4c236932b7" />
-<img width="1886" height="740" alt="image" src="https://github.com/user-attachments/assets/6e9694d2-5b74-49c7-9902-10a671d4b53d" />
-<img width="1890" height="729" alt="image" src="https://github.com/user-attachments/assets/1e93df97-33d2-418f-a563-56782f290317" />
-<img width="1890" height="830" alt="image" src="https://github.com/user-attachments/assets/f4441560-a288-4c6a-9868-f48ff88657e5" />
+O teste utiliza aumento gradual até 200 VUs, manutenção da carga e posterior redução.
 
+### Spike Test
 
-## Executar Spike Test ( Teste de Pico )
-- Validar a reacção da aplicação e da infraestrutura com picos de requisições
-- Validar fluxo de login
-
-### Configuração do teste
-- VUs: aumento repentino
-- Estágios,
-    - rump-up de 1 até 600 virtual users em 2 minutos
-    - ramp-down de 600 VUs até 0 em 40 segundos
-
-### Execução via terminal
+```powershell
 $env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="spike-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run spike-test.js
+```
 
-<img width="1881" height="965" alt="image" src="https://github.com/user-attachments/assets/5f5288dc-56d1-4d6c-8e23-8e36a96e37d1" />
-<img width="1886" height="897" alt="image" src="https://github.com/user-attachments/assets/f2cf0614-8678-4583-af58-069348081e8b" />
-<img width="1889" height="721" alt="image" src="https://github.com/user-attachments/assets/c07e3a39-592d-4730-b221-8a715f3d4b0e" />
-<img width="1892" height="713" alt="image" src="https://github.com/user-attachments/assets/853f97f0-18f9-46ce-8daf-c9378e9c450c" />
-<img width="1888" height="827" alt="image" src="https://github.com/user-attachments/assets/af2242df-bd19-4a7f-aa47-64421a53cea5" />
+O teste avalia a reação da aplicação a um aumento repentino até 600 VUs.
 
+### Soak Test
 
-## Executar Soak Test ( Teste de Estabilidade )
-- Validar o limite do sistema, para descobrir até onde aguenta antes de falhar.
-- Validar fluxo de login
-
-### Configuração do teste
-- VUs: aumento gradativo
-- Estágios,
-    - rump-up de 1 até 200 virtual users em 1 minuto
-    - mantém as 200 VUs durante 1 hora
-    - ramp-down de 200 VUs até 0 em 1 minuto
-
-### Execução via terminal
+```powershell
 $env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="soak-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run soak-test.js
+```
 
-<img width="1886" height="968" alt="image" src="https://github.com/user-attachments/assets/9f1e8b0a-9ba1-4ea5-9cdc-f453e2b7c1af" />
-<img width="1886" height="968" alt="image" src="https://github.com/user-attachments/assets/0c977b8d-1264-4150-acb7-af0342f365f4" />
-<img width="1884" height="707" alt="image" src="https://github.com/user-attachments/assets/b34373c4-59e2-4486-9740-b59eb5cba33b" />
-<img width="1887" height="721" alt="image" src="https://github.com/user-attachments/assets/63b11148-2e73-4a30-b65b-ea9fda0d1d7c" />
-<img width="1895" height="828" alt="image" src="https://github.com/user-attachments/assets/9d15c5f8-f0cf-4257-8273-9cf04592375b" />
+O teste mantém aproximadamente 200 VUs por período prolongado para avaliar estabilidade.
 
+## Estratégia de testes
+
+Os testes foram planejados para avaliar diferentes dimensões de performance: disponibilidade, comportamento sob carga, limite de capacidade, resposta a picos e estabilidade prolongada.
+
+## Resultado esperado
+
+Os relatórios do K6 apresentam métricas de requisições, duração, erros e comportamento da aplicação durante cada cenário, servindo como base para análise de performance.
+
+## Repositório
+
+https://github.com/priottomarcos7-coder/Exerc-cio-M22-EBAC-K6
+
+## Autor
+
+Marcos Priotto
+
+Projeto desenvolvido como parte da formação em Engenharia de Qualidade de Software na EBAC.
