@@ -104,3 +104,113 @@ https://github.com/priottomarcos7-coder/Exerc-cio-M22-EBAC-K6
 Marcos Priotto
 
 Projeto desenvolvido como parte da formação em Engenharia de Qualidade de Software na EBAC.
+---
+
+# English Version
+
+# Performance Testing with K6 — Reading Hub
+
+## Goal
+
+Performance testing project conducted against the Reading Hub API to evaluate system behavior under different load levels and identify potential performance and stability risks.
+
+## What I Developed
+
+I developed several types of performance tests using K6:
+
+- Smoke test to check whether the application is available.
+- Load test to evaluate behavior under controlled load.
+- Stress test to investigate system limits.
+- Spike test to evaluate the response to sudden increases in load.
+- Soak test to evaluate stability during extended execution.
+- Flows related to application login.
+- K6 dashboards and HTML report generation.
+- Analysis of test results and metrics.
+
+## Technologies
+
+- K6
+- JavaScript
+- REST API
+- Reading Hub
+
+## Prerequisites
+
+- K6 installed and available in PATH.
+- Reading Hub API available for testing.
+- Windows PowerShell for the environment-variable commands used in this project.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/priottomarcos7-coder/Exerc-cio-M22-EBAC-K6.git
+cd Exerc-cio-M22-EBAC-K6
+```
+
+Install K6 according to your operating system, then verify the installation:
+
+```bash
+k6 version
+```
+
+## Running the Tests
+
+### Smoke Test
+
+```powershell
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="smoke-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run smoke-test.js
+```
+
+Configuration: 15 virtual users (VUs) for 15 seconds.
+
+### Load Test
+
+```powershell
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="load-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run load-test.js
+```
+
+Configuration: 70 VUs for 2 minutes.
+
+### Stress Test
+
+```powershell
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="stress-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run stress-test.js
+```
+
+The test gradually increases the load up to 200 VUs, maintains it, and then reduces it.
+
+### Spike Test
+
+```powershell
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="spike-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run spike-test.js
+```
+
+The test evaluates the application's response to a sudden increase of up to 600 VUs.
+
+### Soak Test
+
+```powershell
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="soak-test-report.html"; $env:K6_WEB_DASHBOARD_PERIOD="5s"; k6 run soak-test.js
+```
+
+The test maintains approximately 200 VUs for an extended period to evaluate stability.
+
+## Testing Strategy
+
+The tests cover different performance dimensions: availability, behavior under load, capacity limits, response to spikes, and long-term stability.
+
+## Expected Results
+
+K6 reports request metrics, duration, errors, and application behavior during each scenario, providing a basis for performance analysis.
+
+## Repository
+
+https://github.com/priottomarcos7-coder/Exerc-cio-M22-EBAC-K6
+
+## Author
+
+Marcos Priotto
+
+Project developed as part of the Software Quality Engineering training program at EBAC.
